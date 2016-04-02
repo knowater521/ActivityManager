@@ -1,0 +1,168 @@
+body{
+    font-family: "Microsoft Yahei UI","Microsoft Yahei",
+    Verdana,Simsun,"Segoe UI","Segoe UI Web Regular",
+    "Segoe UI Symbol","Helvetica Neue","BBAlpha Sans",
+    "S60 Sans",Arial,sans-serif;
+    text-align: center;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+
+/*nav*/
+
+nav{
+    position: fixed;
+    margin: 0px;
+    width: 100%;
+    height: 4em;
+    background-color: #253939;
+    overflow: hidden;
+    z-index: 5;
+}
+nav a{
+    color: #fff;
+    font-weight: bolder;
+}
+
+hr{
+    width: 25%;
+    align:center;
+}
+
+
+nav a:hover{
+    color: #5fa292;
+}
+
+div#header{
+    display: inline;
+    float: left;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-left: 70px;
+}
+ul#items{
+    list-style: none;
+    display: inline;
+    float: right;
+    margin-top: 1.3em;
+    margin-right: 70px;
+    overflow: hidden;
+}
+
+ul#items>li{
+    margin-left: 50px;
+    display: inline-block;
+}
+
+div.single_page{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+/*part1*/
+
+div#part_1{
+    background-color: #5fa292;
+    color: #000;
+}
+
+#intr_img{
+    margin-top: 150px;
+}
+p#name{
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    font: 70px 'Microsoft Yahei';
+    font-weight: bolder;
+    color: #fff;
+}
+p#intr{
+    margin-top: 1em;
+    font: 25px 'Microsoft Yahei';
+    font-weight: bolder;
+    color: #fff;
+}
+
+/*part2*/
+
+div#part_2{
+    height: 600px;
+    padding-top: 1.3em;
+    background-color: #fff;
+    color: #253939;
+}
+
+#part_2 h1#Information, #part_3 h1#Course_list{
+    margin-top: 1em;
+    margin-bottom: 0;
+    font: 50px 'Microsoft Yahei';
+    font-weight: bolder;
+}
+
+div#part_2>div#inf_content,div#part_3>div#course_content{
+    width: 80%;
+    margin: auto;
+}
+
+#basic_inf,#department_inf,#left_course,#right_course{
+    width: 350px;
+    text-align: justify;
+    vertical-align: top;
+    font-size: 18px;
+    line-height: 1.5em;
+    display: inline-block;
+    padding: 30px;
+    padding-top: 0;
+    text-align: center;
+}
+
+/*div3*/
+div#part_3{
+    height: 600px;
+    padding-top: 1.3em;
+    background-color: #5fa292;
+    color: #fff;
+}
+#course_content ol,#inf_content ol{
+    list-style-type: disc;
+    padding-top: 20px;
+    line-height: 40px;
+}
+
+#beg,#hear{
+    text-align: center;
+    font: 15px 'Microsoft Yahei';
+    padding-top: 70px;
+}
+
+#footer{
+    padding: 15px 0;
+    height: 50px;
+    font: 15px;
+    color: #fff;
+    background-color: #253939;
+}
+
+#footer a{
+    color: #fff;
+    text-decoration: underline;
+}
+
+#footer a:visited{
+    color: #fff;
+}
+a {
+  background-color: transparent;
+  color: #000
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}

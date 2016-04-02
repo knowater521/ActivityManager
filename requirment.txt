@@ -1,0 +1,11 @@
+flask
+flask_nav
+flask-sqlalchemy
+flask_wtf
+flask_bootstrap
+Flask-Login
+pymysql
+gevent==1.1.0
+gunicorn
+sqlalchemy
+xlrd
