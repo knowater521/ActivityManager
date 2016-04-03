@@ -8,6 +8,7 @@ from wtforms import SubmitField, StringField, PasswordField, validators
 
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
 from web.database import User, Uploads, db
+
 import zipfile
 import os
 

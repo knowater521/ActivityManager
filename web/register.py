@@ -4,6 +4,7 @@ from flask_wtf import Form
 from wtforms import SubmitField, StringField, PasswordField, validators
 
 from web.database import db, User
+from web import custom_validator
 
 
 class RegForm(Form):
@@ -12,12 +13,17 @@ class RegForm(Form):
     button = SubmitField('提交')
 
 
-@app.route('/upload/register',methods=['POST', 'GET'])
+@app.route('/upload/register', methods=['POST', 'GET'])
 def reg():
     form = RegForm()
     if form.validate_on_submit():
         if User.query.filter_by(user=form.user.data).first() is not None:
             flash('您已经报名过辣~')
+            return render_template('reg.html', form=form)
+
+        # Make your own custom validator here
+        if custom_validator.valid_is_fzu(form.pwd.data, form.user.data) is False:
+            flash('您填写的信息不正确')
             return render_template('reg.html', form=form)
 
         try:
