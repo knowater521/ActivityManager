@@ -1,5 +1,5 @@
 from flask_bootstrap import Bootstrap
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
@@ -33,6 +33,7 @@ app.config['SQLALCHEMY_BINDS'] = {"submiter": mysql_url + 'homeworksubmit'
 import web.uploader
 import web.index
 import web.admin
+import web.register
 
 nav = Nav()
 
@@ -41,6 +42,7 @@ nav = Nav()
 def nav_bar():
     return Navbar(
             '作品上传系统',
+            View('报名', 'reg'),
             View('上传', 'upload'),
             View('退出', 'logout')
     )
@@ -60,6 +62,11 @@ def nav_bar_admin():
 
 
 nav.init_app(app)
+
+
+@app.route('/upload/')
+def goto_main_page():
+    return redirect(url_for('reg'))
 
 
 @app.errorhandler(401)

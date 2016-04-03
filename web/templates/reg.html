@@ -1,0 +1,28 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+
+{% block navbar %}
+    {{ nav.nav_bar.render() }}
+{% endblock %}
+
+
+{% block metas %}
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+{% endblock %}
+
+{% block title %}
+    数计网络部
+{% endblock %}
+
+{% block content %}
+    <h1>网络部报名系统</h1>
+    {{ util.flashed_messages(dismissible=True) }}
+    <div class="container">
+        {{ wtf.quick_form(form, form_type='horizontal',button_map={'submit_button': 'primary'}) }}
+    </div>
+
+{% endblock %}
+

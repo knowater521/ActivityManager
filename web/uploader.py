@@ -38,7 +38,7 @@ class LoginForm(Form):
     button = SubmitField('提交')
 
 
-@app.route('/upload', methods=['POST', 'GET'])
+@app.route('/uploadfile/', methods=['POST', 'GET'])
 @login_required
 def upload():
     form = HomeworkForm()
@@ -86,44 +86,3 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-
-@app.route('/upload/download/list')
-@login_required
-def download_list():
-    if not current_user.is_admin():
-        return render_template('errors/402.html'), 401
-
-    x = Uploads.query.all()
-    return render_template('download.html', data=x)
-
-
-@app.route('/upload/download/<filename>')
-@login_required
-def download_file(filename):
-    if not current_user.is_admin():
-        return render_template('errors/402.html'), 401
-    # 判断合法性
-    if not User.query.filter_by(user=filename).first():
-        abort(404)
-    if os.path.exists('./uploads/{}.zip'.format(filename)):
-        return send_file('../uploads/{}.zip'.format(filename))
-    abort(404)
-
-
-@app.route('/upload/stulist')
-@login_required
-def stu_list():
-    if not current_user.is_admin():
-        return render_template('errors/402.html'), 401
-    has_uploads = Uploads.query.all()
-    has_uploads_usernames = []
-    for one in has_uploads:
-        has_uploads_usernames.append(one.user)
-    all_users = User.query.all()
-    res_set = []
-    for one in all_users:
-        if one.user in has_uploads_usernames:
-            res_set.append({'name': one.user, 'has': True})
-        else:
-            res_set.append({'name': one.user, 'has': False})
-    return render_template('stu_list.html', data=res_set)
