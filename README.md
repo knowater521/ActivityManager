@@ -3,11 +3,10 @@
 
 
 # Installation
-'''python
+
     pip -u requirement.txt
     python3 runserver.py # This is use for testing mode.
     gunicorn runserver:app # This is use for production mode.
-'''
 
 
 # Notes:
@@ -25,6 +24,7 @@ It's recommended to set up an nginx to proxy the network and use supervisor to c
           proxy_set_header   Remote_Addr    $remote_addr;
           proxy_redirect off;
           proxy_pass http://127.0.0.1:8000;
+          client_max_body_size 100m; 
         }
     # Copy Static folder to your web directory if needed.
         

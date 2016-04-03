@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>网络部报名系统</h1>
+    <div style="text-align: center;"><h1>网络部报名系统</h1></div>
     {{ util.flashed_messages(dismissible=True) }}
     <div class="container">
         {{ wtf.quick_form(form, form_type='horizontal',button_map={'submit_button': 'primary'}) }}
