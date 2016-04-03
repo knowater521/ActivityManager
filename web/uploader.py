@@ -1,5 +1,5 @@
 from web import app
-from flask import render_template, send_file, flash, redirect, url_for, abort
+from flask import render_template, flash, redirect, url_for
 
 from flask_wtf import Form
 
@@ -38,7 +38,7 @@ class LoginForm(Form):
     button = SubmitField('提交')
 
 
-@app.route('/uploadfile/', methods=['POST', 'GET'])
+@app.route('/upload/uploadfile/', methods=['POST', 'GET'])
 @login_required
 def upload():
     form = HomeworkForm()

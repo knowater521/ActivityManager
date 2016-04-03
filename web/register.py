@@ -16,15 +16,19 @@ class RegForm(Form):
 def reg():
     form = RegForm()
     if form.validate_on_submit():
+        if User.query.filter_by(user=form.user.data).first() is not None:
+            flash('您已经报名过辣~')
+            return render_template('reg.html', form=form)
+
         try:
             new_user = User(form.user.data, form.pwd.data)
             db.session.add(new_user)
             db.session.commit()
         except Exception as err:
-            flash(str(err),'error')
+            flash(str(err), 'error')
 
         else:
-            flash("报名成功!",'info')
+            flash("报名成功!", 'info')
 
     return render_template('reg.html', form=form)
 
