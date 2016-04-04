@@ -23,7 +23,7 @@ def reg():
 
         # Make your own custom validator here
         if custom_validator.valid_is_fzu(form.pwd.data, form.user.data) is False:
-            flash('您填写的信息不正确')
+            flash('您填写的信息不正确/学号姓名不对应')
             return render_template('reg.html', form=form)
 
         try:
