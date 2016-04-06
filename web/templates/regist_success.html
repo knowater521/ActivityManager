@@ -1,0 +1,30 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+
+{% block navbar %}
+    {{ nav.nav_bar.render() }}
+{% endblock %}
+
+
+{% block metas %}
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+{% endblock %}
+
+{% block title %}
+    数计网络部
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center;"><h1>报名成功!</h1>
+        <br/>
+        <h3>请核对您的个人信息</h3>
+        <br/>
+        <h4>学号:{{ stu_id }}</h4>
+        <h4>姓名:{{ user }}</h4>
+    </div>
+
+{% endblock %}
+

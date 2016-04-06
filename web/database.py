@@ -15,9 +15,10 @@ class User(db.Model):
     def is_admin(self):
         return self.admin
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, qq):
         self.user = username
         self.pwd = password
+        self.qq = qq
 
     def get_id(self):
         return self.user
