@@ -22,6 +22,15 @@ def reg():
 
     form = RegForm()
     if form.validate_on_submit():
+
+        if not form.pwd.data.isdigit() or not form.qq.data.isdigit():
+            flash('听说学号和QQ是数字组成的')
+            return render_template('reg.html',form=form)
+
+        if len(form.pwd.data)!=9 or len(form.qq.data) < 5:
+            flash('感觉你填的资料有哪里不大对镜QAQ')
+            return render_template('reg.html',form=form)
+
         if User.query.filter_by(user=form.user.data).first() is not None:
             flash('您已经报名过辣~')
             return render_template('reg.html', form=form)
