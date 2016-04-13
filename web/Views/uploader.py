@@ -66,7 +66,7 @@ def upload():
     else:
         last_time_msg = '上次上传时间: {0} , 大小: {1}'.format(last_time.time[:-7], last_time.size)
 
-    return render_template('upload.html', user=current_user, form=form, filename=filename, l_s_m=last_time_msg)
+    return render_template('upload.html',user=current_user,form=form,filename=filename,l_s_m=last_time_msg)
 
 
 @app.route('/upload/login', methods=['GET', "POST"])
@@ -78,7 +78,7 @@ def login():
             login_user(user)
             return redirect(url_for('upload'))
         flash('用户名或密码错误', 'error')
-    return render_template('login.html', form=form)
+    return render_template('login.html',form=form)
 
 
 @app.route('/upload/logout', methods=['GET', "POST"])

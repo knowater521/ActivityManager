@@ -10,15 +10,17 @@ class User(db.Model):
     __bind_key__ = 'submiter'
     user = db.Column(db.VARCHAR, primary_key=True)
     pwd = db.Column(db.Text)
+    phone = db.Column(db.Text)
     admin = db.Column(db.Boolean, default=False)
 
     def is_admin(self):
         return self.admin
 
-    def __init__(self, username, password, qq):
+    def __init__(self, username, password, qq, phone):
         self.user = username
         self.pwd = password
         self.qq = qq
+        self.phone = phone
 
     def get_id(self):
         return self.user

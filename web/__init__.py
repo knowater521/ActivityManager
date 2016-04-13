@@ -1,13 +1,9 @@
-from flask_bootstrap import Bootstrap
 from flask import Flask, render_template, redirect, url_for
-
+from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
 
 from web import Environment
-
-from flask.ext.admin.contrib.sqla import ModelView
-
 
 app = Flask(__name__)
 app.secret_key = 'jhjhjgAWg;;fgsHH,jmN$*&hjksdfX/!?RT'
@@ -27,13 +23,14 @@ app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
 # app.config['SQLALCHEMY_ECHO']=True
 mysql_url = 'mysql+pymysql://{0}:{1}@localhost:{2}/'.format(Environment.mysql_user, Environment.mysql_passwd,
                                                             Environment.mysql_port)
-app.config['SQLALCHEMY_BINDS'] = {"submiter": mysql_url + 'homeworksubmit'
+app.config['SQLALCHEMY_BINDS'] = {"submiter": mysql_url + 'homeworksubmit',
+                                  "Question": mysql_url + 'questions'
                                   }
 
-import web.uploader
-import web.index
-import web.admin
-import web.register
+import web.Views.index
+import web.Views.admin
+import web.Views.register
+import web.Views.uploader
 
 nav = Nav()
 

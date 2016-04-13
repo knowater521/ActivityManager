@@ -65,17 +65,17 @@ admin.add_view(FileDownload('uploads/', '/upload/download/', name='文件下载'
 @login_required
 def download_list():
     if not current_user.is_admin():
-        return render_template('errors/402.html'), 401
+        return render_template('errors/402.html'),401
 
     x = Uploads.query.all()
-    return render_template('download.html', data=x)
+    return render_template('download.html',data=x)
 
 
 @app.route('/upload/download/<filename>')
 @login_required
 def download_file(filename):
     if not current_user.is_admin():
-        return render_template('errors/402.html'), 401
+        return render_template('errors/402.html'),401
     # 判断合法性
     if not User.query.filter_by(user=filename).first():
         abort(404)
@@ -88,7 +88,7 @@ def download_file(filename):
 @login_required
 def stu_list():
     if not current_user.is_admin():
-        return render_template('errors/402.html'), 401
+        return render_template('errors/402.html'),401
     has_uploads = Uploads.query.all()
     has_uploads_usernames = []
     for one in has_uploads:
@@ -100,4 +100,4 @@ def stu_list():
             res_set.append({'name': one.user, 'has': True})
         else:
             res_set.append({'name': one.user, 'has': False})
-    return render_template('stu_list.html', data=res_set)
+    return render_template('stu_list.html',data=res_set)
