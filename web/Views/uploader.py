@@ -1,17 +1,12 @@
-from web import app
-from flask import render_template, flash, redirect, url_for
-
-from flask_wtf import Form
-
-from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import SubmitField, StringField, PasswordField, validators
-
-from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
-from web.database import User, Uploads, db
-
-import zipfile
 import os
+import zipfile
 
+from flask import render_template, flash, redirect, url_for
+from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
+
+
+from web import app
+from web.Views.Model.database import User, Uploads, db
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -25,18 +20,6 @@ def load_user(user_id):
     return user
 
 
-class HomeworkForm(Form):
-    homework = FileField('你的作品', validators=[
-        FileRequired(message='请选择文件'),
-        FileAllowed(['zip'], '请使用ZIP格式，拒绝RAR')
-    ])
-    button = SubmitField('提交')
-
-
-class LoginForm(Form):
-    user = StringField('姓名', [validators.required()], description="就是你的名字")
-    pwd = PasswordField('密码', [validators.required()], description="学号")
-    button = SubmitField('提交')
 
 
 @app.route('/upload/uploadfile/', methods=['POST', 'GET'])

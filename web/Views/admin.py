@@ -1,16 +1,14 @@
-from web import app
+import os
+import os.path as op
+
 from flask import render_template, send_file, abort
-
 from flask.ext.admin import Admin
-from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.admin.contrib.fileadmin import FileAdmin
-
+from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.login import  login_required, current_user
 
-from web.database import db, User, Uploads
-
-import os.path as op
-import os
+from web import app
+from web.Views.Model.database import db
 
 
 class UserView(ModelView):

@@ -1,19 +1,13 @@
 from flask import render_template, flash ,redirect ,url_for
 from flask.ext.login import login_required,login_user,current_user
-from flask_wtf import Form
-from wtforms import SubmitField, StringField,validators
+
 
 from web import app
-from web.database import db, User
+from web.Views.Model.database import db, User
 from web.functions import custom_validator
 
 
-class RegForm(Form):
-    user = StringField('姓名', [validators.required()], description="你的姓名")
-    pwd = StringField('学号', [validators.required()], description="你的学号")
-    qq = StringField('QQ',[validators.required()],description="留下QQ便于我们联系")
-    phone = StringField('手机',[validators.required()],description="我们将用短信通知您最新信息!")
-    button = SubmitField('提交')
+
 
 
 @app.route('/upload/register', methods=['POST', 'GET'])
