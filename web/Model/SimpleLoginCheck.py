@@ -1,6 +1,6 @@
 import functools
 
-from flask import session, flash, redirect
+from flask import session, flash, redirect, url_for
 from web.Model.database import Members
 
 from web.Model.RegChecks import check_acatvity
@@ -18,17 +18,21 @@ def login_required(func):
                 return func(*args, **kw, current_user=member, act=act)
         # not logined
         flash('您还没加入活动或者登录呢~')
-        return redirect('/upload/{}/join'.format(act_name))
+        return redirect(url_for('login', activity=act_name))
 
     return wrapper
 
 
 def login_user(member):
     session['{}_user'.format(member.get_act_name())] = member.get_id()
+    if member.is_admin():
+        session["isadmin"] = True
 
 
 def logout_user(member):
     session.pop('{}_user'.format(member.get_act_name()))
+    if "isadmin" in session:
+        session.pop("isadmin")
 
 
 def is_authenticated(act_name):

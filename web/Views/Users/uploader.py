@@ -9,7 +9,7 @@ from web.Model.database import UploadHistory, db
 from web.Model.SimpleLoginCheck import login_required
 
 
-@app.route(baseurl + '/<activity>/uploadfile/', methods=['POST', 'GET'])
+@app.route(baseurl + '/<activity>/uploadfile', methods=['POST', 'GET'])
 @login_required
 def upload(activity, act, current_user):
     form = Forms.UploadFile()

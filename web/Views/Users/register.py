@@ -63,7 +63,7 @@ def register_success(activity, current_user, act):
     return render_template('Joins/regist_success.html', user=current_user, act=act)
 
 
-@app.route(baseurl + '/<activity>/modify_team',methods=['GET', 'POST'])
+@app.route(baseurl + '/<activity>/modify_team', methods=['GET', 'POST'])
 @login_required
 def modify_team(activity, current_user, act):
     if not act.team_enable:

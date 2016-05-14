@@ -68,7 +68,7 @@ class Activities(db.Model):
         self.note = note
 
     def __repr__(self):
-        return "{0} {1}".format(self.activity_name, self.team_enable)
+        return "{0} {1} {2}".format(self.activity_name, self.team_enable, self.upload_enable)
 
 
 class UploadHistory(db.Model):
