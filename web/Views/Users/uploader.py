@@ -1,11 +1,12 @@
 import os
 
-from web import app, baseurl
-from web.Views.Model import Forms
-from web.Views.Model.database import Members, UploadHistory, db
-from web.Views.Model.SimpleLoginCheck import login_required
+from flask import render_template, flash
 from werkzeug import secure_filename
-from flask import render_template, flash, redirect, url_for
+
+from web import app, baseurl
+from web.Model import Forms
+from web.Model.database import UploadHistory, db
+from web.Model.SimpleLoginCheck import login_required
 
 
 @app.route(baseurl + '/<activity>/uploadfile/', methods=['POST', 'GET'])

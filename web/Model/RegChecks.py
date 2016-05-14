@@ -1,5 +1,6 @@
-from web.Views.Model.database import db, Activities, Members
 from flask import abort
+
+from web.Model.database import Activities, Members
 
 
 def check_acatvity(name):

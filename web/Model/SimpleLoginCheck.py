@@ -1,7 +1,9 @@
 import functools
-from flask import session, flash,redirect
-from web.Views.Model.database import Members
-from web.Views.Model.RegChecks import check_acatvity
+
+from flask import session, flash, redirect
+from web.Model.database import Members
+
+from web.Model.RegChecks import check_acatvity
 
 
 def login_required(func):

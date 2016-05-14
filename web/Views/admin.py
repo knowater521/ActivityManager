@@ -8,7 +8,7 @@ from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.login import  login_required, current_user
 
 from web import app
-from web.Views.Model.database import db
+from web.Model import db
 
 
 class UserView(ModelView):

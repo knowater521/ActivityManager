@@ -1,10 +1,11 @@
-from web import app, baseurl
-from web.Views.Model import Forms
-from web.Views.Model.database import Members
-from web.Views.Model.SimpleLoginCheck import login_user, logout_user
-from web.Views.Model.RegChecks import check_acatvity
-from web.Views.Model.SimpleLoginCheck import login_required
 from flask import render_template, flash, url_for, redirect
+from web.Model import Forms
+from web.Model.SimpleLoginCheck import login_required
+from web.Model.SimpleLoginCheck import login_user, logout_user
+from web.Model.database import Members
+
+from web import app, baseurl
+from web.Model.RegChecks import check_acatvity
 
 
 @app.route(baseurl + '/<activity>/login', methods=['GET', "POST"])

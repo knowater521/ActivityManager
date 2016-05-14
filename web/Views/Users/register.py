@@ -1,13 +1,11 @@
 from flask import render_template, flash, redirect, url_for, abort
-from web.Views.Model.SimpleLoginCheck import login_required, login_user, is_authenticated
+from web.Model import Forms
+from web.Model.SimpleLoginCheck import login_required, login_user, is_authenticated
+from web.Model.database import db, Members
 
 from web import app
-from web.Views.Model.database import db, Members
-from web.functions import custom_validator
-
 from web import baseurl
-from web.Views.Model.RegChecks import check_acatvity, check_user_exist
-from web.Views.Model import Forms
+from web.Model.RegChecks import check_acatvity, check_user_exist
 
 
 @app.route(baseurl + '/<activity>/join', methods=['POST', 'GET'])
