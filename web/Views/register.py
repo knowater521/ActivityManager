@@ -1,55 +1,79 @@
-from flask import render_template, flash ,redirect ,url_for
-from flask.ext.login import login_required,login_user,current_user
-
+from flask import render_template, flash, redirect, url_for, abort
+from web.Views.Model.SimpleLoginCheck import login_required, login_user, is_authenticated
 
 from web import app
-from web.Views.Model.database import db, User
+from web.Views.Model.database import db, Members
 from web.functions import custom_validator
 
+from web import baseurl
+from web.Views.Model.RegChecks import check_acatvity, check_user_exist
+from web.Views.Model import Forms
 
 
+@app.route(baseurl + '/<activity>/join', methods=['POST', 'GET'])
+def reg(activity):
+    act = check_acatvity(activity)
 
+    if is_authenticated(activity):
+        return redirect(url_for('register_success', activity=activity))
 
-@app.route('/upload/register', methods=['POST', 'GET'])
-def reg():
-    if current_user.is_authenticated :
-        return redirect(url_for('register_success'))
+    if act.team_enable:
+        form = Forms.RegWithTeam()
+    else:
+        form = Forms.Reg()
 
-    form = RegForm()
     if form.validate_on_submit():
 
-        if not form.pwd.data.isdigit() or not form.qq.data.isdigit():
+        if not form.stucode.data.isdigit() or not form.qq.data.isdigit():
             flash('听说学号和QQ是数字组成的')
-            return render_template('reg.html',form=form)
+            return render_template('Joins/reg.html', form=form)
 
-        if len(form.pwd.data)!=9 or len(form.qq.data) < 5 or len(form.phone.data)!=11:
+        if len(form.stucode.data) != 9 or len(form.qq.data) < 5 or len(form.phone.data) != 11:
             flash('感觉你填的资料有哪里不大对镜QAQ')
-            return render_template('reg.html',form=form)
+            return render_template('Joins/reg.html', form=form)
 
-        if User.query.filter_by(user=form.user.data).first() is not None:
+        if check_user_exist(form.stucode.data, activity):
             flash('您已经报名过辣~')
-            return render_template('reg.html',form=form)
-
+            return render_template('Joins/reg.html', form=form)
 
         # Make your own custom validator here
-        if custom_validator.valid_is_fzu(form.pwd.data,form.user.data) is False:
-            flash('您填写的信息不正确/学号姓名不对应')
-            return render_template('reg.html',form=form)
+        # if custom_validator.valid_is_fzu(form.stucode.data, form.name.data) is False:
+        #     flash('您填写的信息不正确/学号姓名不对应')
+        #     return render_template('reg.html', form=form)
 
         try:
-            new_user = User(form.user.data, form.pwd.data, form.qq.data, form.phone.data)
-            db.session.add(new_user)
+            new_member = Members(form.name.data, form.stucode.data, form.qq.data, form.phone.data, activity)
+            if act.team_enable:
+                new_member.team = form.team.data
+
+            db.session.add(new_member)
             db.session.commit()
         except Exception as err:
             flash(str(err), 'error')
 
         else:
-            login_user(new_user)
-            return redirect(url_for('register_success'))
+            login_user(new_member)
 
-    return render_template('reg.html',form=form)
+            return redirect(url_for('register_success', activity=activity))
 
-@app.route('/upload/register_success')
+    return render_template('Joins/reg.html', form=form)
+
+
+@app.route(baseurl + '/<activity>/register_success')
 @login_required
-def register_success():
-    return render_template('regist_success.html',user=current_user.user,stu_id=current_user.pwd)
+def register_success(activity, current_user, act):
+    return render_template('Joins/regist_success.html', user=current_user, act=act)
+
+
+@app.route(baseurl + '/<activity>/modify_team',methods=['GET','POST'])
+@login_required
+def modify_team(activity, current_user, act):
+    if not act.team_enable:
+        abort(404)
+    form = Forms.TeamModify()
+    if form.validate_on_submit():
+        current_user.team = form.team.data
+        db.session.commit()
+        return redirect(url_for('register_success',activity=activity))
+    form.team.data = current_user.team
+    return render_template('Joins/modift_team.html', form=form)

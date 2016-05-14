@@ -18,12 +18,13 @@
 {% endblock %}
 
 {% block content %}
-    <div style="text-align: center;"><h1>报名成功!</h1>
-        <br/>
-        <h3>请核对您的个人信息</h3>
-        <br/>
-        <h4>学号:{{ stu_id }}</h4>
-        <h4>姓名:{{ user }}</h4>
+    <div style="text-align: center;">
+        <h1>网络部报名系统</h1>
+        <h1>团队信息修改</h1>
+    </div>
+    {{ util.flashed_messages(dismissible=True) }}
+    <div class="container">
+        {{ wtf.quick_form(form, form_type='horizontal',button_map={'submit_button': 'primary'}) }}
     </div>
 
 {% endblock %}

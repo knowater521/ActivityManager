@@ -29,7 +29,6 @@ baseurl = Environment.baseurl
 import web.Views
 
 
-
 @app.route('/upload/')
 def goto_main_page():
     return redirect(url_for('reg'))
