@@ -31,6 +31,11 @@
             <br><br>
             <h4><a href= {{ url_for('modify_team',activity=act.activity_name) }}>团队信息修改</a></h4>
         {% endif %}
+
+        <div style="display: table;width: auto;margin-left: auto;margin-right: auto;">
+            <h3>{{ act.note }}</h3>
+        </div>
+
     </div>
 
 {% endblock %}

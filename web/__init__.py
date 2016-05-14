@@ -22,16 +22,11 @@ app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
 # app.config['SQLALCHEMY_ECHO']=True
 mysql_url = 'mysql+pymysql://{0}:{1}@localhost:{2}/'.format(Environment.mysql_user, Environment.mysql_passwd,
                                                             Environment.mysql_port)
-app.config['SQLALCHEMY_BINDS'] = {"submiter": mysql_url + 'homeworksubmit'}
+app.config['SQLALCHEMY_BINDS'] = {"activity": mysql_url + 'homeworksubmit'}
 
 baseurl = Environment.baseurl
 
 import web.Views
-
-
-@app.route('/upload/')
-def goto_main_page():
-    return redirect(url_for('reg'))
 
 
 @app.errorhandler(401)

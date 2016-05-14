@@ -18,10 +18,14 @@
 {% endblock %}
 
 {% block content %}
-    <div style="text-align: center;"><h1>网络部报名系统</h1></div>
+    <div style="text-align: center;"><h1>{{ act.title }}</h1></div>
     {{ util.flashed_messages(dismissible=True) }}
     <div class="container">
         {{ wtf.quick_form(form, form_type='horizontal',button_map={'submit_button': 'primary'}) }}
+    </div>
+
+    <div style="display: table;width: auto;margin-left: auto;margin-right: auto;">
+        <h3>{{ act.note }}</h3>
     </div>
 
 {% endblock %}

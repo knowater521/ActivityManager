@@ -22,14 +22,18 @@
 {% endblock %}
 
 {% block content %}
-    {{ util.flashed_messages(dismissible=True) }}
+    <h1 style="text-align: center">{{ act.title }}</h1>
+
     <div style="padding-left: 5em">
-    <h3>Hello {{ user.user }}</h3>
-    <p style="padding-left: 2em">{{ l_s_m }}</p>
+        {{ util.flashed_messages(dismissible=True) }}
+        <h3>Hello {{ user.name }}</h3>
+        <p style="padding-left: 2em">{{ l_s_m }}</p>
     </div>
+
     <div class="container">
         {{ wtf.quick_form(form, form_type='horizontal',button_map={'submit_button': 'primary'}) }}
     </div>
+
 
 {% endblock %}
 

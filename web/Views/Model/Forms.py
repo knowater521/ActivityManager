@@ -21,16 +21,16 @@ class RegWithTeam(Form):
 
 
 class UploadFile(Form):
-    homework = FileField('你的作品', validators=[
+    works = FileField('你的作品', validators=[
         FileRequired(message='请选择文件'),
-        FileAllowed(['zip','rar'], '请使用zip或rar压缩格式提交')
+        FileAllowed(['zip', 'rar'], '请使用zip或rar压缩格式提交')
     ])
     button = SubmitField('提交')
 
 
 class Login(Form):
-    user = StringField('姓名', [validators.required()], description="就是你的名字")
-    pwd = StringField('密码', [validators.required()], description="学号")
+    name = StringField('姓名', [validators.required()], description="就是你的名字")
+    stucode = StringField('密码', [validators.required()], description="学号")
     button = SubmitField('提交')
 
 

@@ -19,7 +19,7 @@ class UserView(ModelView):
         return current_user.is_admin()
 
     column_display_pk = True
-    form_columns = ['user', 'pwd', 'admin']
+    form_columns = ['name', 'stucode', 'admin']
 
     def __init__(self, session, **kwargs):
         super(UserView, self).__init__(User, session, **kwargs)

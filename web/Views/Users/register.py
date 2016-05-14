@@ -56,7 +56,7 @@ def reg(activity):
 
             return redirect(url_for('register_success', activity=activity))
 
-    return render_template('Joins/reg.html', form=form)
+    return render_template('Joins/reg.html', form=form, act=act)
 
 
 @app.route(baseurl + '/<activity>/register_success')
@@ -65,7 +65,7 @@ def register_success(activity, current_user, act):
     return render_template('Joins/regist_success.html', user=current_user, act=act)
 
 
-@app.route(baseurl + '/<activity>/modify_team',methods=['GET','POST'])
+@app.route(baseurl + '/<activity>/modify_team',methods=['GET', 'POST'])
 @login_required
 def modify_team(activity, current_user, act):
     if not act.team_enable:
@@ -74,6 +74,6 @@ def modify_team(activity, current_user, act):
     if form.validate_on_submit():
         current_user.team = form.team.data
         db.session.commit()
-        return redirect(url_for('register_success',activity=activity))
+        return redirect(url_for('register_success', activity=activity))
     form.team.data = current_user.team
-    return render_template('Joins/modift_team.html', form=form)
+    return render_template('Joins/modift_team.html', form=form, act=act)

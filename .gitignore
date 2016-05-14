@@ -63,3 +63,4 @@ target/
 .idea
 Environment.py
 custom_validator.py
+uploads

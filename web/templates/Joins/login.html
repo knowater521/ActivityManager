@@ -18,10 +18,18 @@
 {% endblock %}
 
 {% block content %}
+
     {{ util.flashed_messages(dismissible=True) }}
-    <h1>{{ user }}</h1>
     <div class="container">
+        <div style="text-align: center">
+            <h2>{{ act.title }}</h2>
+            <h2>登录</h2>
+        </div>
         {{ wtf.quick_form(form, form_type='horizontal',button_map={'submit_button': 'primary'}) }}
+    </div>
+
+    <div style="display: table;width: auto;margin-left: auto;margin-right: auto;">
+        <h3>{{ act.note }}</h3>
     </div>
 
 {% endblock %}

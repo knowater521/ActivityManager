@@ -7,7 +7,7 @@ db = SQLAlchemy(app)
 
 
 class Members(db.Model):
-    __bind_key__ = 'submiter'
+    __bind_key__ = 'activity'
     sid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text)
     stu_code = db.Column(db.Text)
@@ -53,7 +53,7 @@ class Members(db.Model):
 
 
 class Activities(db.Model):
-    __bind_key__ = 'submiter'
+    __bind_key__ = 'activity'
     activity_name = db.Column(db.VARCHAR(10), primary_key=True, unique=True)
     title = db.Column(db.Text)
     team_enable = db.Column(db.Boolean, default=False)
@@ -72,15 +72,15 @@ class Activities(db.Model):
 
 
 class UploadHistory(db.Model):
-    __bind_key__ = 'submiter'
+    __bind_key__ = 'activity'
     sid = db.Column(db.Integer)
     activity = db.Column(db.VARCHAR)
     time = db.Column(db.DateTime, default=datetime.datetime.now())
     size = db.Column(db.Text)
     fid = db.Column(db.Integer, primary_key=True)
 
-    def __init__(self, user, size, activity):
-        self.user = user
+    def __init__(self, sid, activity, size):
+        self.sid = sid
         self.size = size
         self.time = datetime.datetime.now()
         self.activity = activity

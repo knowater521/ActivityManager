@@ -1,6 +1,6 @@
 import functools
 from flask import session, flash,redirect
-from web.Views.Model.database import db, Activities, Members
+from web.Views.Model.database import Members
 from web.Views.Model.RegChecks import check_acatvity
 
 
@@ -23,6 +23,10 @@ def login_required(func):
 
 def login_user(member):
     session['{}_user'.format(member.get_act_name())] = member.get_id()
+
+
+def logout_user(member):
+    session.pop('{}_user'.format(member.get_act_name()))
 
 
 def is_authenticated(act_name):

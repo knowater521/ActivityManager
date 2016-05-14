@@ -15,7 +15,7 @@ Base = declarative_base()
 
 # 定义User对象:
 class User(Base):
-    __tablename__ = 'user'
+    __tablename__ = 'name'
     user = Column(VARCHAR, primary_key=True)
     pwd = Column(Text)
     admin = Column(BOOLEAN, default=0)
@@ -62,7 +62,7 @@ class AddUser:
         print('---End---')
 
     def open_xls(self):
-        xls_file = 'user.xls'
+        xls_file = 'name.xls'
         try:
             self.data = xlrd.open_workbook(xls_file)
         except IOError:
