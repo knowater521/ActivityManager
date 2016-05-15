@@ -1,12 +1,14 @@
-# FileSubmitter
-用来社团，部门，比赛提交作业，作品文件使用。网页提交文件代替FTP，限定zip格式。
+# FileSubmitter / Activity Manager
+用来社团,部门,比赛,活动的报名与文件成功提交。 使用网页提交文件代替FTP上传,自动规范文件名,方便快捷。
 
 
 # Installation
+    Edit the Environment.py with your database configuration and baseurl.
 
     pip -u requirement.txt
     python3 runserver.py # This is use for testing mode.
     gunicorn runserver:app # This is use for production mode.
+    # using gunicorn -k gevent runserver:app to enable gevent mode.
 
 
 # Notes:
@@ -38,3 +40,10 @@ It's recommended to set up an nginx to proxy the network and use supervisor to c
     autorestart = true
     stderr_logfile = /tmp/stderr.log
     stdout_logfile = /tmp/stdout.log
+
+# How to use
+- In the first time you need to add an activity and Admin manually in the database.
+- Then you can simply login via the admin account in baseurl/activity_name/login to login,click the admin pannel in the navigation bar to get more settings and set more activities.
+- Because the file download moudle is unstable and unconvience.Is's recommand to set up a FTP server in the Upload directory to download all Files.
+- After set up the server.Visit baseurl to get activities list.
+

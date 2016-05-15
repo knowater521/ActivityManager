@@ -1,9 +1,11 @@
 from web import app
 from web import baseurl
-from flask import render_template, flash, request, session, redirect, url_for
+from flask import render_template, flash, request, session, redirect, url_for, send_file
 from ...Model.database import db, Activities, Members, UploadHistory
 from ...Model import Forms
 from ...Model.SimpleLoginCheck import admin_required
+import xlwt
+from io import BytesIO as StringIO
 
 
 @app.route(baseurl + '/admin/home')
@@ -64,11 +66,11 @@ def memberlist():
     act_name = request.args.get('act')
     form = Forms.ActChosen()
     form.csrf_enabled = False
-    if act_name and act_name != 'all':
+    if act_name:
         members = Members.query.filter_by(activity=act_name).all()
         form.act.data = act_name
     else:
-        form.act.data = 'all'
+        form.act.data = ''
         members = Members.query.all()
     return render_template('admin/member_list.html', form=form, member=members)
 
@@ -93,3 +95,38 @@ def submitlist():
 def logout_admin():
     session.clear()
     return redirect((url_for('index')))
+
+
+@app.route(baseurl + '/admin/export')
+@admin_required
+def generate_excel():
+    act_name = request.args.get('act')
+    if act_name:
+        members = Members.query.filter_by(activity=act_name).all()
+    else:
+        members = Members.query.all()
+        act_name = 'All'
+
+    file = xlwt.Workbook()
+    table = file.add_sheet(act_name)
+    titleRow = ['姓名', '学号', 'qq', 'phone', '团队', '活动']
+    for col in range(0, 6):
+        table.write(0, col, titleRow[col])
+    row = 0
+    for person in members:
+        row += 1
+        table.write(row, 0, person.name)
+        table.write(row, 1, person.stu_code)
+        table.write(row, 2, person.qq)
+        table.write(row, 3, person.phone)
+        table.write(row, 4, person.team)
+        table.write(row, 5, person.activity)
+
+    sio = StringIO()
+    file.save(sio)
+    sio.seek(0)
+    return send_file(sio,
+                     attachment_filename="{}.xls".format(act_name),
+                     as_attachment=True)
+
+

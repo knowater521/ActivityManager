@@ -8,7 +8,8 @@
 {% endblock %}
 
 {% block metas %}
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"
+          xmlns="http://www.w3.org/1999/html"/>
 {% endblock %}
 
 {% block content %}
@@ -28,7 +29,7 @@
         </div>
 
         <div style="float: left;margin-left: 3em">
-            <h3>导出excel</h3>
+            <h3><a href="{{ url_for('generate_excel',act=form.act.data) }}"> 导出excel </a></h3>
         </div>
 
     <table class="table">
