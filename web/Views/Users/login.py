@@ -13,7 +13,8 @@ def login(activity):
     act = check_acatvity(activity)
     form = Forms.Login()
     if form.validate_on_submit():
-        user = Members.query.filter_by(stu_code=form.name.data, activity=act.activity_name).first()
+        user = Members.query.filter_by(stu_code=form.stucode.data, activity=act.activity_name).first()
+        print(form.name.data)
         if user is not None and user.stu_code == form.stucode.data:
             login_user(user)
             if act.upload_enable:

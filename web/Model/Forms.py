@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import SubmitField, StringField, validators, TextAreaField
+from wtforms import SubmitField, StringField, validators, TextAreaField, BooleanField, SelectField
+from .database import Activities
 
 
 class Reg(Form):
@@ -36,4 +37,21 @@ class Login(Form):
 
 class TeamModify(Form):
     team = TextAreaField('队员信息', description="组队参加请按照\"姓名 学号\"一人一行填写在文本框内 如: 王尼玛 22150xxxx")
+    button = SubmitField('提交')
+
+
+class ActModify(Form):
+    name = StringField('活动名(网址)', [validators.required()], description="建议英文")
+    title = StringField('活动Title', [validators.required()], description="显示标题")
+    note = TextAreaField('Note', description="显示于活动页下方")
+    reg_enable = BooleanField('开放报名')
+    team_enable = BooleanField('允许组队')
+    upload_enable = BooleanField('开放上传')
+    button = SubmitField('提交')
+
+
+class ActChosen(Form):
+    choice = list((o.activity_name, o.activity_name) for o in Activities.query.all())
+    choice.insert(0, ('', '全部'))
+    act = SelectField('活动', choices=choice)
     button = SubmitField('提交')

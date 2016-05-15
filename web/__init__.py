@@ -19,7 +19,7 @@ app.config['databasePwd'] = Environment.mysql_passwd
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
 
-# app.config['SQLALCHEMY_ECHO']=True
+# app.config['SQLALCHEMY_ECHO'] = True
 mysql_url = 'mysql+pymysql://{0}:{1}@localhost:{2}/'.format(Environment.mysql_user, Environment.mysql_passwd,
                                                             Environment.mysql_port)
 app.config['SQLALCHEMY_BINDS'] = {"activity": mysql_url + 'homeworksubmit'}

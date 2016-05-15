@@ -1,0 +1,48 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block navbar %}
+    {{ nav.nav_bar_admin.render() }}
+{% endblock %}
+
+{% block metas %}
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+{% endblock %}
+
+{% block content %}
+    <h1>活动管理 --<a href={{ url_for("add_activity") }}>新增</a> </h1>
+
+    <table class="table">
+
+        <thead>
+        <tr>
+            <th>编辑</th>
+            <th>活动名</th>
+            <th>活动Title</th>
+            <th>开放报名</th>
+            <th>允许组队</th>
+            <th>开放文件上传</th>
+            <th>备注</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for one in activites %}
+            <tr>
+                <td><span><a href="{{ url_for('edit_activity',activity = one.activity_name) }}">编辑</a> </span></td>
+                <td><span>{{ one.activity_name }}</span></td>
+                <td><span>{{ one.title }}</span></td>
+                <td><span>{% if  one.reg_enable %}Y{% else %}N{% endif %}</span></td>
+                <td><span>{% if  one.team_enable %}Y{% else %}N{% endif %}</span></td>
+                <td><span>{% if  one.upload_enable %}Y{% else %}N{% endif %}</span></td>
+                <td><span>{{ one.note }}</span></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

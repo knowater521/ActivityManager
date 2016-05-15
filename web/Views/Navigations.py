@@ -5,6 +5,7 @@ from flask import request,session
 from web.Model.database import Activities
 from web.Model.SimpleLoginCheck import is_authenticated
 nav = Nav()
+nav.init_app(app)
 
 
 @nav.navigation()
@@ -29,16 +30,16 @@ def nav_bar():
 
 @nav.navigation()
 def nav_bar_admin():
-
+    act_name = request.args.get('act')
     return Navbar(
         '管理员',
-        # View('测试上传', 'upload'),
-        # View('上传清单', 'download_list'),
-        # View('情况总览', 'stu_list'),
+        View('活动管理', 'admin_home'),
+        View('活动成员', 'memberlist', act=act_name),
+        View('提交情况', 'submitlist', act=act_name),
+        View('退出', 'logout_admin'),
         # View('新版管理面版', 'admin.index'),
         # View('退出', 'logout')
 
     )
 
 
-nav.init_app(app)

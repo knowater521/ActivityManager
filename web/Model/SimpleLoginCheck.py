@@ -1,6 +1,6 @@
 import functools
 
-from flask import session, flash, redirect, url_for
+from flask import session, flash, redirect, url_for, abort
 from web.Model.database import Members
 
 from web.Model.RegChecks import check_acatvity
@@ -40,3 +40,13 @@ def is_authenticated(act_name):
     if sid:
         return sid
     return None
+
+
+def admin_required(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        isadmin = session.get('isadmin', False)
+        if not isadmin:
+            abort(401)
+        return func(*args, **kw)
+    return wrapper

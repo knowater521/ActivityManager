@@ -1,0 +1,56 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block navbar %}
+    {{ nav.nav_bar_admin.render() }}
+{% endblock %}
+
+{% block metas %}
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <h1>上传历史</h1>
+    {{ util.flashed_messages(dismissible=True) }}
+    <div style="width: 40%;float: left;padding-left: 5em">
+        <form class="form form-horizontal" role="form">
+            <div class="form-group" style="display:inline-block">
+                <label class="control-label" for="act">活动</label>
+                {{ form.act(class="form-control", id="act", style="display:inline-block;width:7em") }}
+            </div>
+            <input class="btn btn-default" type="submit" style="margin-left: 3em">
+        </form>
+    </div>
+
+    <table class="table">
+
+        <thead>
+        <tr>
+            <th>活动</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>时间</th>
+            <th>大小</th>
+            <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for one in data %}
+            <tr>
+                <td><span>{{ one.UploadHistory.activity }}</span></td>
+                <td><span>{{ one.stu_code }}</span></td>
+                <td><span>{{ one.name }}</span></td>
+                <td><span>{{ one.UploadHistory.time }}</span></td>
+                <td><span>{{ one.UploadHistory.size }}</span></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

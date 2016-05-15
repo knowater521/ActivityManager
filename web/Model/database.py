@@ -56,15 +56,17 @@ class Activities(db.Model):
     __bind_key__ = 'activity'
     activity_name = db.Column(db.VARCHAR(10), primary_key=True, unique=True)
     title = db.Column(db.Text)
+    reg_enable = db.Column(db.Boolean, default=True)
     team_enable = db.Column(db.Boolean, default=False)
     upload_enable = db.Column(db.Boolean, default=False)
     note = db.Column(db.Text, default="")
 
-    def __init__(self, activity_name, title, team_enable, upload_enable, note):
+    def __init__(self, activity_name, title, reg_enable, team_enable, upload_enable, note):
         self.activity_name = activity_name
         self.title = title
         self.team_enable = team_enable
         self.upload_enable = upload_enable
+        self.reg_enable = reg_enable
         self.note = note
 
     def __repr__(self):
@@ -73,7 +75,7 @@ class Activities(db.Model):
 
 class UploadHistory(db.Model):
     __bind_key__ = 'activity'
-    sid = db.Column(db.Integer)
+    sid = db.Column(db.Integer, db.ForeignKey('members.sid'))
     activity = db.Column(db.VARCHAR)
     time = db.Column(db.DateTime, default=datetime.datetime.now())
     size = db.Column(db.Text)
