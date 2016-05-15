@@ -23,7 +23,7 @@ def nav_bar():
         items.append(View('登出', 'logout', activity=act_name))
     else:
         items.append(View('报名', 'reg', activity=act_name))
-        items.append(View('登录', 'login', activity=act_name))
+        items.append(View('报名查询', 'login', activity=act_name))
 
     return Navbar('作品上传系统', *items)
 

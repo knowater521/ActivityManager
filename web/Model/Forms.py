@@ -31,7 +31,7 @@ class UploadFile(Form):
 
 class Login(Form):
     name = StringField('姓名', [validators.required()], description="就是你的名字")
-    stucode = StringField('密码', [validators.required()], description="学号")
+    stucode = StringField('学号', [validators.required()], description="学号")
     button = SubmitField('提交')
 
 

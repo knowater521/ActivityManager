@@ -5,11 +5,7 @@
 
 
 {% block navbar %}
-    {% if user.is_admin() %}
-    {{ nav.nav_bar_admin.render() }}
-    {% else %}
-    {{  nav.nav_bar.render() }}
-    {% endif %}
+    {{ nav.nav_bar.render() }}
 {% endblock %}
 
 
