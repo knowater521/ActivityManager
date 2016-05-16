@@ -1,6 +1,6 @@
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import SubmitField, StringField, validators, TextAreaField, BooleanField, SelectField
+from wtforms import SubmitField, StringField, validators, TextAreaField, BooleanField, SelectField, IntegerField
 from .database import Activities
 
 
@@ -44,6 +44,7 @@ class ActModify(Form):
     name = StringField('活动名(网址)', [validators.required()], description="建议英文")
     title = StringField('活动Title', [validators.required()], description="显示标题")
     note = TextAreaField('Note', description="显示于活动页下方")
+    rank = IntegerField('排序', [validators.NumberRange(min=0, max=10)], description="0在最上面")
     reg_enable = BooleanField('开放报名')
     team_enable = BooleanField('允许组队')
     upload_enable = BooleanField('开放上传')

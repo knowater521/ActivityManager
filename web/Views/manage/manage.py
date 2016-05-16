@@ -11,7 +11,7 @@ from io import BytesIO as StringIO
 @app.route(baseurl + '/admin/home')
 @admin_required
 def admin_home():
-    acts = Activities.query.all()
+    acts = Activities.query.order_by(Activities.rank).all()
     return render_template('admin/activities_list.html', activites=acts)
 
 
@@ -29,6 +29,7 @@ def edit_activity(activity):
             act.upload_enable = form.upload_enable.data
             act.reg_enable = form.reg_enable.data
             act.note = form.note.data
+            act.rank = form.rank.data
             db.session.commit()
             flash("更新成功")
         except Exception as err:
@@ -40,6 +41,7 @@ def edit_activity(activity):
         form.upload_enable.data = act.upload_enable
         form.reg_enable.data = act.reg_enable
         form.note.data = act.note
+        form.rank.data = act.rank
     return render_template('admin/act_modify.html', form=form, act_name=act.title)
 
 
@@ -51,7 +53,7 @@ def add_activity():
     if form.validate_on_submit():
         try:
             act = Activities(form.name.data, form.title.data, form.reg_enable.data, form.team_enable.data,
-                             form.upload_enable.data, form.note.data)
+                             form.upload_enable.data, form.note.data, form.rank.data)
             db.session.add(act)
             db.session.commit()
             flash("添加成功")
@@ -67,11 +69,11 @@ def memberlist():
     form = Forms.ActChosen()
     form.csrf_enabled = False
     if act_name:
-        members = Members.query.filter_by(activity=act_name).all()
+        members = Members.query.order_by(Members.stu_code).filter_by(activity=act_name).all()
         form.act.data = act_name
     else:
         form.act.data = ''
-        members = Members.query.all()
+        members = Members.query.order_by(Members.stu_code).all()
     return render_template('admin/member_list.html', form=form, member=members)
 
 

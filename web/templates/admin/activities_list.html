@@ -25,6 +25,7 @@
             <th>允许组队</th>
             <th>开放文件上传</th>
             <th>备注</th>
+            <th>排序</th>
 
         </tr>
         </thead>
@@ -38,6 +39,7 @@
                 <td><span>{% if  one.team_enable %}Y{% else %}N{% endif %}</span></td>
                 <td><span>{% if  one.upload_enable %}Y{% else %}N{% endif %}</span></td>
                 <td><span>{{ one.note }}</span></td>
+                <td><span>{{ one.rank }}</span></td>
             </tr>
         {% endfor %}
 

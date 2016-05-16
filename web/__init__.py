@@ -22,7 +22,7 @@ app.config['SQLALCHEMY_NATIVE_UNICODE'] = True
 # app.config['SQLALCHEMY_ECHO'] = True
 mysql_url = 'mysql+pymysql://{0}:{1}@localhost:{2}/'.format(Environment.mysql_user, Environment.mysql_passwd,
                                                             Environment.mysql_port)
-app.config['SQLALCHEMY_BINDS'] = {"activity": mysql_url + 'homeworksubmit'}
+app.config['SQLALCHEMY_BINDS'] = {"activity": mysql_url + 'activitymanager'}
 
 baseurl = Environment.baseurl
 

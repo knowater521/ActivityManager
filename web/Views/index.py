@@ -10,7 +10,7 @@ def index():
 
 @app.route(baseurl)
 def activity_chosen():
-    acts = Activities.query.all()
+    acts = Activities.query.order_by(Activities.rank).all()
     return render_template('index/chosen_page.html', acts=acts)
 
 

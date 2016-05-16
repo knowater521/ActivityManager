@@ -14,7 +14,7 @@ class Members(db.Model):
     qq = db.Column(db.Text)
     phone = db.Column(db.Text)
     team = db.Column(db.Text, default="")
-    activity = db.Column(db.VARCHAR(10))
+    activity = db.Column(db.VARCHAR(10), db.ForeignKey('activities.activity_name'))
     admin = db.Column(db.Boolean, default=False)
 
     def is_admin(self):
@@ -60,14 +60,16 @@ class Activities(db.Model):
     team_enable = db.Column(db.Boolean, default=False)
     upload_enable = db.Column(db.Boolean, default=False)
     note = db.Column(db.Text, default="")
+    rank = db.Column(db.Integer, default=0)
 
-    def __init__(self, activity_name, title, reg_enable, team_enable, upload_enable, note):
+    def __init__(self, activity_name, title, reg_enable, team_enable, upload_enable, note, rank):
         self.activity_name = activity_name
         self.title = title
         self.team_enable = team_enable
         self.upload_enable = upload_enable
         self.reg_enable = reg_enable
         self.note = note
+        self.rank = rank
 
     def __repr__(self):
         return "{0} {1} {2}".format(self.activity_name, self.team_enable, self.upload_enable)
@@ -76,7 +78,7 @@ class Activities(db.Model):
 class UploadHistory(db.Model):
     __bind_key__ = 'activity'
     sid = db.Column(db.Integer, db.ForeignKey('members.sid'))
-    activity = db.Column(db.VARCHAR)
+    activity = db.Column(db.VARCHAR, db.ForeignKey('activities.activity_name'))
     time = db.Column(db.DateTime, default=datetime.datetime.now())
     size = db.Column(db.Text)
     fid = db.Column(db.Integer, primary_key=True)
