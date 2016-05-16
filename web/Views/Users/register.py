@@ -6,6 +6,7 @@ from web.Model.database import db, Members
 from web import app
 from web import baseurl
 from web.Model.RegChecks import check_acatvity, check_user_exist
+from web.functions import custom_validator
 
 
 @app.route(baseurl + '/<activity>/join', methods=['POST', 'GET'])
@@ -24,20 +25,20 @@ def reg(activity):
 
         if not form.stucode.data.isdigit() or not form.qq.data.isdigit():
             flash('听说学号和QQ是数字组成的')
-            return render_template('Joins/reg.html', form=form)
+            return render_template('Joins/reg.html', form=form, act=act)
 
         if len(form.stucode.data) != 9 or len(form.qq.data) < 5 or len(form.phone.data) != 11:
             flash('感觉你填的资料有哪里不大对镜QAQ')
-            return render_template('Joins/reg.html', form=form)
+            return render_template('Joins/reg.html', form=form, act=act)
 
         if check_user_exist(form.stucode.data, activity):
             flash('您已经报名过辣~')
-            return render_template('Joins/reg.html', form=form)
+            return render_template('Joins/reg.html', form=form, act=act)
 
         # Make your own custom validator here
-        # if custom_validator.valid_is_fzu(form.stucode.data, form.name.data) is False:
-        #     flash('您填写的信息不正确/学号姓名不对应')
-        #     return render_template('reg.html', form=form)
+        if custom_validator.valid_is_fzu(form.stucode.data, form.name.data) is False:
+            flash('您填写的信息不正确/学号姓名不对应')
+            render_template('Joins/reg.html', form=form, act=act)
 
         try:
             new_member = Members(form.name.data, form.stucode.data, form.qq.data, form.phone.data, activity)
