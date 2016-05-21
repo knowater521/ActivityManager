@@ -5,7 +5,7 @@
 # Installation
     Edit the Environment.py with your database configuration and baseurl.
 
-    pip -u requirement.txt
+    pip -r requirement.txt
     python3 runserver.py # This is use for testing mode.
     gunicorn runserver:app # This is use for production mode.
     # using gunicorn -k gevent runserver:app to enable gevent mode.
