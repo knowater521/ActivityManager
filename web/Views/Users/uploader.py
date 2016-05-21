@@ -8,6 +8,8 @@ from web.Model import Forms
 from web.Model.database import UploadHistory, db
 from web.Model.SimpleLoginCheck import login_required
 
+baseurl = '{}/activity'.format(baseurl)
+
 
 @app.route(baseurl + '/<activity>/uploadfile', methods=['POST', 'GET'])
 @login_required

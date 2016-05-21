@@ -18,8 +18,6 @@ def nav_bar():
         items.append(View('报名查询', 'register_success', activity=act_name))
         if act.upload_enable:
             items.append(View('作品上传', 'upload', activity=act_name))
-        if session.get('isadmin', False):
-            items.append(View('管理中心', 'admin_home', activity=act_name))
         items.append(View('登出', 'logout', activity=act_name))
     else:
         items.append(View('报名', 'reg', activity=act_name))
@@ -37,9 +35,6 @@ def nav_bar_admin():
         View('活动成员', 'memberlist', act=act_name),
         View('提交情况', 'submitlist', act=act_name),
         View('退出', 'logout_admin'),
-        # View('新版管理面版', 'admin.index'),
-        # View('退出', 'logout')
-
     )
 
 

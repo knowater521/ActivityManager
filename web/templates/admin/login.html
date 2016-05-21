@@ -1,0 +1,34 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+
+{% block navbar %}
+    {{ nav.nav_bar_admin.render() }}
+{% endblock %}
+
+
+{% block metas %}
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+{% endblock %}
+
+{% block title %}
+    管理登录
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div style="text-align: center">
+            <h2>管理面板</h2>
+            <h2>登录</h2>
+        </div>
+        {{ util.flashed_messages(dismissible=True) }}
+        {{ wtf.quick_form(form, form_type='horizontal',button_map={'submit_button': 'primary'}) }}
+    </div>
+
+
+
+{% endblock %}
+

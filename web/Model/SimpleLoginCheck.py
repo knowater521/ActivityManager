@@ -25,16 +25,10 @@ def login_required(func):
 
 def login_user(member):
     session['{}_user'.format(member.get_act_name())] = member.get_id()
-    if member.is_admin():
-        session["isadmin"] = True
-    else:
-        session["isadmin"] = False
 
 
 def logout_user(member):
     session.pop('{}_user'.format(member.get_act_name()))
-    if "isadmin" in session:
-        session.pop("isadmin")
 
 
 def is_authenticated(act_name):
@@ -49,6 +43,7 @@ def admin_required(func):
     def wrapper(*args, **kw):
         isadmin = session.get('isadmin', False)
         if not isadmin:
-            abort(401)
+            flash('请先登录')
+            return redirect(url_for('admin_login'))
         return func(*args, **kw)
     return wrapper

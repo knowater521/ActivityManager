@@ -15,10 +15,6 @@ class Members(db.Model):
     phone = db.Column(db.Text)
     team = db.Column(db.Text, default="")
     activity = db.Column(db.VARCHAR(10), db.ForeignKey('activities.activity_name'))
-    admin = db.Column(db.Boolean, default=False)
-
-    def is_admin(self):
-        return self.admin
 
     def __init__(self, name, stu_code, qq, phone, activity):
         self.name = name
@@ -33,20 +29,7 @@ class Members(db.Model):
     def get_act_name(self):
         return self.activity
 
-    @property
-    def is_authenticated(self, act):
-        if act == self.activity:
-            return True
-        else:
-            return False
 
-    @property
-    def is_active(self):
-        return True
-
-    @property
-    def is_anonymous(self):
-        return False
 
     def __repr__(self):
             return "{0} {1}".format(self.name, self.stu_code)
@@ -90,3 +73,7 @@ class UploadHistory(db.Model):
         self.activity = activity
 
 
+class Admins(db.Model):
+    __bind_key__ = 'activity'
+    user = db.Column(db.VARCHAR, primary_key=True)
+    passwd = db.Column(db.Text)

@@ -8,6 +8,8 @@ from web import baseurl
 from web.Model.RegChecks import check_acatvity, check_user_exist
 from web.functions import custom_validator
 
+baseurl = '{}/activity'.format(baseurl)
+
 
 @app.route(baseurl + '/<activity>/join', methods=['POST', 'GET'])
 def reg(activity):

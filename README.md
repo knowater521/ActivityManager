@@ -42,8 +42,8 @@ It's recommended to set up an nginx to proxy the network and use supervisor to c
     stdout_logfile = /tmp/stdout.log
 
 # How to use
-- In the first time you need to add an activity and Admin manually in the database.
-- Then you can simply login via the admin account in baseurl/activity_name/login to login,click the admin pannel in the navigation bar to get more settings and set more activities.
+- Go to the Manager Pannel in baseurl/admin/login and login with the user define in the database.
+- After That,Using pannel to add and manage Activities.
 - Because the file download moudle is unstable and unconvience.Is's recommand to set up a FTP server in the Upload directory to download all Files.
 - After set up the server.Visit baseurl to get activities list.
 
