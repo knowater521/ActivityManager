@@ -9,6 +9,11 @@ from web.Model.RegChecks import check_acatvity
 baseurl = '{}/activity'.format(baseurl)
 
 
+@app.route(baseurl + '/<activity>')
+def act_home(activity):
+    return redirect(url_for('login',activity=activity))
+
+
 @app.route(baseurl + '/<activity>/login', methods=['GET', "POST"])
 def login(activity):
     act = check_acatvity(activity)

@@ -8,6 +8,13 @@ import xlwt
 from io import BytesIO as StringIO
 
 
+@app.route(baseurl + '/admin')
+def admin_index():
+    if session.get('isadmin',False):
+        return redirect(url_for('admin_home'))
+    return redirect(url_for('admin_login'))
+
+
 @app.route(baseurl + '/admin/login', methods=['GET', 'POST'])
 def admin_login():
     form = Forms.LoginAdmin()
