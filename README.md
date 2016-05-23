@@ -3,7 +3,7 @@
 
 
 # Installation
-    Edit the Environment.py with your database configuration and baseurl.
+    Edit the config.json with your database configuration and baseurl.
 
     pip -r requirement.txt
     python3 runserver.py # This is use for testing mode.

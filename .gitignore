@@ -64,3 +64,4 @@ target/
 Environment.py
 custom_validator.py
 uploads
+config.json
