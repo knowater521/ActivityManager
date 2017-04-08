@@ -61,6 +61,7 @@ class Activities(db.Model):
     upload_enable = db.Column(db.Boolean, default=False)
     note = db.Column(db.Text, default="")
     rank = db.Column(db.Integer, default=0)
+    hide = db.Column(db.Boolean, default=False)
 
     def __init__(self, activity_name, title, reg_enable, team_enable, upload_enable, note, rank):
         self.activity_name = activity_name
@@ -70,6 +71,7 @@ class Activities(db.Model):
         self.reg_enable = reg_enable
         self.note = note
         self.rank = rank
+        self.hide = False
 
     def __repr__(self):
         return "{0} {1} {2}".format(self.activity_name, self.team_enable, self.upload_enable)

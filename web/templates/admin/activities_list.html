@@ -26,6 +26,7 @@
             <th>开放文件上传</th>
             <th>备注</th>
             <th>排序</th>
+            <th>隐藏活动</th>
 
         </tr>
         </thead>
@@ -40,6 +41,7 @@
                 <td><span>{% if  one.upload_enable %}Y{% else %}N{% endif %}</span></td>
                 <td><span>{{ one.note }}</span></td>
                 <td><span>{{ one.rank }}</span></td>
+                <td><span>{{ one.hide }}</span></td>
             </tr>
         {% endfor %}
 

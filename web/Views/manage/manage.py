@@ -7,6 +7,11 @@ from ...Model.SimpleLoginCheck import admin_required
 import xlwt
 from io import BytesIO as StringIO
 
+@app.route(baseurl + '/admin')
+def loginadmin():
+
+
+    return redirect(url_for('login',activity='admin'))
 
 @app.route(baseurl + '/admin/home')
 @admin_required
@@ -30,6 +35,7 @@ def edit_activity(activity):
             act.reg_enable = form.reg_enable.data
             act.note = form.note.data
             act.rank = form.rank.data
+            act.hide = form.hide.data
             db.session.commit()
             flash("更新成功")
         except Exception as err:
@@ -42,6 +48,8 @@ def edit_activity(activity):
         form.reg_enable.data = act.reg_enable
         form.note.data = act.note
         form.rank.data = act.rank
+        form.hide.data= act.hide
+
     return render_template('admin/act_modify.html', form=form, act_name=act.title)
 
 

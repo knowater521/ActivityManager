@@ -15,7 +15,7 @@ def login_required(func):
         if sid:
             member = Members.query.filter_by(sid=str(sid)).first()
             if act_name == member.get_act_name():
-                return func(*args, **kw, current_user=member, act=act)
+                return func(*args,current_user=member, act=act, **kw)
         # not logined
         flash('您还没加入活动或者登录呢~')
         return redirect(url_for('login', activity=act_name))

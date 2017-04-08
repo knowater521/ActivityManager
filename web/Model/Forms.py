@@ -48,6 +48,7 @@ class ActModify(Form):
     reg_enable = BooleanField('开放报名')
     team_enable = BooleanField('允许组队')
     upload_enable = BooleanField('开放上传')
+    hide = BooleanField('隐藏显示')
     button = SubmitField('提交')
 
 
