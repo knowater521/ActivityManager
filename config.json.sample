@@ -1,0 +1,9 @@
+{
+  "secret_key":"jhjhjgAWg;;fgsHH,jmN$*&hjksdfX/!?RT",
+  "mysql_user": "root",
+  "mysql_passwd": "root",
+  "mysql_port": "8889",
+  "database":"activitymanager",
+  "baseurl":"/upload",
+  "Test_Mode":0
+}

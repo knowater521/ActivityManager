@@ -1,7 +1,7 @@
 from web import app
 from web import baseurl
 from flask import render_template, flash, request, session, redirect, url_for, send_file
-from ...Model.database import db, Activities, Members, UploadHistory
+from ...Model.database import db, Activities, Members, UploadHistory, Admins
 from ...Model import Forms
 from ...Model.SimpleLoginCheck import admin_required
 import xlwt
@@ -12,6 +12,25 @@ def loginadmin():
 
 
     return redirect(url_for('login',activity='admin'))
+
+@app.route(baseurl + '/admin')
+def admin_index():
+    if session.get('isadmin',False):
+        return redirect(url_for('admin_home'))
+    return redirect(url_for('admin_login'))
+
+
+@app.route(baseurl + '/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    form = Forms.LoginAdmin()
+    if form.validate_on_submit():
+        user = Admins.query.filter_by(user=form.user.data).first()
+        if user is not None and user.passwd == form.passwd.data:
+            session['isadmin'] = True
+            return redirect(url_for('admin_home'))
+        flash('用户名或密码错误')
+    return render_template('admin/login.html',form=form)
+
 
 @app.route(baseurl + '/admin/home')
 @admin_required

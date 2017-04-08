@@ -1,6 +1,6 @@
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import SubmitField, StringField, validators, TextAreaField, BooleanField, SelectField, IntegerField
+from wtforms import SubmitField, StringField, validators, TextAreaField, BooleanField, SelectField, IntegerField, PasswordField
 from .database import Activities
 
 
@@ -56,4 +56,10 @@ class ActChosen(Form):
     choice = list((o.activity_name, o.activity_name) for o in Activities.query.all())
     choice.insert(0, ('', '全部'))
     act = SelectField('活动', choices=choice)
+    button = SubmitField('提交')
+
+
+class LoginAdmin(Form):
+    user = StringField('用户名', [validators.required()])
+    passwd = PasswordField('密码', [validators.required()])
     button = SubmitField('提交')
