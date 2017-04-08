@@ -4,7 +4,7 @@ from ..Model.database import Activities
 
 
 def index():
-    acts = Activities.query.order_by(Activities.rank).all()
+    acts = Activities.query.filter_by(hide=False).order_by(Activities.rank).all()
     return render_template('index/chosen_page.html', acts=acts)
 
 
