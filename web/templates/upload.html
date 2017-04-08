@@ -28,8 +28,64 @@
 
     <div class="container">
         {{ wtf.quick_form(form, form_type='horizontal',button_map={'submit_button': 'primary'}) }}
+
+        <div class="progress" id="progress_div" style="display: none">
+        <div id="progressbar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+            0%
+        </div>
     </div>
 
 
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+<script>
+$(document).ready(function () {
+    $('form').on('submit',function (event) {
+        event.preventDefault();
+
+        $('#progress_div').css('display','block');
+
+        var formData = new FormData($('form')[0]);
+        $.ajax({
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener('progress',function (e) {
+                    if(e.lengthComputable){
+                        var percent = Math.round(e.loaded/e.total * 100)
+                        console.log(percent);
+                        $('#progressbar').attr('aria-valuenow',percent).css('width',percent + '%').text(percent + '%')
+
+                    }
+
+                });
+
+                return xhr;
+            },
+            type:'POST',
+            url:'',
+            data:formData,
+            processData:false,
+            contentType:false,
+            success:function () {
+                setTimeout(function () {
+                    alert('上传成功');
+                location.reload()
+                },500);
+
+            },
+            error:function (e) {
+                alert("上传失败,请联系管理员:"+e.statusText)
+            }
+        })
+    })
+})
+</script>
 {% endblock %}
 
