@@ -7,15 +7,10 @@ from ...Model.SimpleLoginCheck import admin_required
 import xlwt
 from io import BytesIO as StringIO
 
-@app.route(baseurl + '/admin')
-def loginadmin():
-
-
-    return redirect(url_for('login',activity='admin'))
 
 @app.route(baseurl + '/admin')
 def admin_index():
-    if session.get('isadmin',False):
+    if session.get('isadmin', False):
         return redirect(url_for('admin_home'))
     return redirect(url_for('admin_login'))
 
@@ -29,7 +24,7 @@ def admin_login():
             session['isadmin'] = True
             return redirect(url_for('admin_home'))
         flash('用户名或密码错误')
-    return render_template('admin/login.html',form=form)
+    return render_template('admin/login.html', form=form)
 
 
 @app.route(baseurl + '/admin/home')
@@ -67,7 +62,7 @@ def edit_activity(activity):
         form.reg_enable.data = act.reg_enable
         form.note.data = act.note
         form.rank.data = act.rank
-        form.hide.data= act.hide
+        form.hide.data = act.hide
 
     return render_template('admin/act_modify.html', form=form, act_name=act.title)
 
@@ -111,7 +106,8 @@ def submitlist():
     form = Forms.ActChosen()
     form.csrf_enabled = False
     if act_name:
-        his = UploadHistory.query.outerjoin(Members).add_columns(Members.name, Members.stu_code).filter_by(activity=act_name).all()
+        his = UploadHistory.query.outerjoin(Members).add_columns(Members.name, Members.stu_code).filter_by(
+            activity=act_name).all()
         form.act.data = act_name
     else:
         form.act.data = ''
@@ -157,5 +153,3 @@ def generate_excel():
     return send_file(sio,
                      attachment_filename="{}.xls".format(act_name),
                      as_attachment=True)
-
-

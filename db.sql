@@ -12,7 +12,8 @@ CREATE TABLE `activities` (
   `team_enable` tinyint(1) NOT NULL DEFAULT '0',
   `upload_enable` tinyint(1) NOT NULL DEFAULT '0',
   `note` text COLLATE utf8_bin NOT NULL,
-  `rank` int(11) NOT NULL DEFAULT '0'
+  `rank` int(11) NOT NULL DEFAULT '0',
+  `hide` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `admins` (

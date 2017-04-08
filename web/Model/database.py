@@ -2,7 +2,6 @@ import datetime
 from flask.ext.sqlalchemy import SQLAlchemy
 from web import app
 
-
 db = SQLAlchemy(app)
 
 
@@ -29,10 +28,8 @@ class Members(db.Model):
     def get_act_name(self):
         return self.activity
 
-
-
     def __repr__(self):
-            return "{0} {1}".format(self.name, self.stu_code)
+        return "{0} {1}".format(self.name, self.stu_code)
 
 
 class Activities(db.Model):
