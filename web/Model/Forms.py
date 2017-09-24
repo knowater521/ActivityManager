@@ -24,8 +24,9 @@ class RegWithTeam(Form):
 class UploadFile(Form):
     works = FileField('你的作品', validators=[
         FileRequired(message='请选择文件'),
-        FileAllowed(['zip', 'rar'], '请使用zip或rar压缩格式提交')
-    ])
+        FileAllowed(['zip', 'rar'], '请使用zip或rar压缩格式提交'),
+    ],        
+    description="文件请打包压缩后上传，推荐使用ZIP格式～～")
     button = SubmitField('提交')
 
 
@@ -51,11 +52,11 @@ class ActModify(Form):
     hide = BooleanField('隐藏显示')
     button = SubmitField('提交')
 
+def getChoices():
+    return list((o.activity_name, o.activity_name) for o in Activities.query.all())
 
 class ActChosen(Form):
-    choice = list((o.activity_name, o.activity_name) for o in Activities.query.all())
-    choice.insert(0, ('', '全部'))
-    act = SelectField('活动', choices=choice)
+    act = SelectField('活动', choices=[])
     button = SubmitField('提交')
 
 

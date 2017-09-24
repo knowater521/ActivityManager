@@ -7,7 +7,7 @@ app = Flask(__name__)
 # BootStarp init
 app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 app.config['BOOTSTRAP_QUERYSTRING_REVVING'] = False
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 Bootstrap(app)
 
 try:

@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import os
 
-from flask import render_template, flash
+from flask import render_template, flash,request,jsonify
 from werkzeug import secure_filename
 
 from web import app, baseurl
@@ -18,22 +20,32 @@ def upload(activity, act, current_user):
     filename = None
     if form.validate_on_submit():
         ext_name = secure_filename(form.works.data.filename).split('.')[-1]
+
+        print(current_user.name)
+
         filename = "{}_{}_{}.{}".format(act.title, current_user.stu_code, current_user.name, ext_name)
-        try:
-            directory = 'uploads/{}/'.format(activity)
-            if not os.path.exists(directory):
-                os.makedirs(directory)
+        # try:
+        directory = 'uploads/{}/'.format(activity)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        print(filename)
+        form.works.data.save(directory + filename)
+        file_size = "{0}k".format(os.path.getsize(directory + filename) / 1000)
 
-            form.works.data.save(directory + filename)
-            file_size = "{0}k".format(os.path.getsize(directory + filename) / 1000)
-
-            data = UploadHistory(current_user.sid, activity, file_size)
-            db.session.add(data)
-            db.session.commit()
-        except Exception as err:
-            flash("错误:" + str(err))
-        flash("上传成功!", 'info')
-
+        data = UploadHistory(current_user.sid, activity, file_size)
+        db.session.add(data)
+        db.session.commit()
+        # except Exception as err:
+            # flash("错误:" + str(err))
+            # return jsonify(success=False,status="错误:" + str(err))
+        print("flash upload success")
+        return jsonify(success=True,status="上传成功!")
+        # flash("上传成功!", 'info')
+    else:
+        if request.method == "POST":
+            return jsonify(success=False,status="上传失败，请检查文件格式。或刷新网页／联系管理员")
+            # print("validdate fail")
+            # flash("validdate fail")
     last_time = UploadHistory.query.filter_by(sid=current_user.sid, activity=activity).order_by(UploadHistory.fid.desc()
                                                                                                 ).first()
 

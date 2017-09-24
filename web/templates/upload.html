@@ -50,6 +50,18 @@ $(document).ready(function () {
     $('form').on('submit',function (event) {
         event.preventDefault();
 
+        let file = document.getElementById("works").value
+        if (file == ""){alert("请选择文件！");return}
+        
+        let spilt_str = file.split(".")
+        let ext_name = spilt_str[spilt_str.length-1].toUpperCase();
+
+        if(["RAR","ZIP"].indexOf(ext_name)==-1){
+            alert("文件格式错误，请打包压缩后上传（推荐使用zip格式）")
+            return;
+        } 
+        
+
         $('#progress_div').css('display','block');
 
         var formData = new FormData($('form')[0]);
@@ -73,9 +85,13 @@ $(document).ready(function () {
             data:formData,
             processData:false,
             contentType:false,
-            success:function () {
+            success:function (e) {
                 setTimeout(function () {
-                    alert('上传成功');
+                    if(e.success){
+                        alert('上传成功');
+                    }else{
+                        alert(e.status);
+                    }
                 location.reload()
                 },500);
 
@@ -86,6 +102,9 @@ $(document).ready(function () {
         })
     })
 })
+
+
 </script>
+
 {% endblock %}
 

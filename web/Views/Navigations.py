@@ -20,7 +20,8 @@ def nav_bar():
             items.append(View('作品上传', 'upload', activity=act_name))
         items.append(View('登出', 'logout', activity=act_name))
     else:
-        items.append(View('报名', 'reg', activity=act_name))
+        if act.reg_enable:
+            items.append(View('报名', 'reg', activity=act_name))
         if act.upload_enable:
             items.append(View('登录/上传', 'login', activity=act_name))
         else:

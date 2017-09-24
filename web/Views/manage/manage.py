@@ -7,6 +7,10 @@ from ...Model.SimpleLoginCheck import admin_required
 import xlwt
 from io import BytesIO as StringIO
 
+def getChoices():
+        choice = list((o.activity_name, o.activity_name) for o in Activities.query.all())
+        choice.insert(0, ('', '全部'))
+        return choice
 
 @app.route(baseurl + '/admin')
 def admin_index():
@@ -90,6 +94,7 @@ def memberlist():
     act_name = request.args.get('act')
     form = Forms.ActChosen()
     form.csrf_enabled = False
+    form.act.choices = getChoices()
     if act_name:
         members = Members.query.order_by(Members.stu_code).filter_by(activity=act_name).all()
         form.act.data = act_name
@@ -105,6 +110,8 @@ def submitlist():
     act_name = request.args.get('act')
     form = Forms.ActChosen()
     form.csrf_enabled = False
+    form.act.choices = getChoices()
+
     if act_name:
         his = UploadHistory.query.outerjoin(Members).add_columns(Members.name, Members.stu_code).filter_by(
             activity=act_name).all()
