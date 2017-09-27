@@ -36,24 +36,33 @@
 
         <thead>
         <tr>
+            <th>序号</th>
             <th>活动</th>
             <th>姓名</th>
             <th>学号</th>
             <th>qq</th>
             <th>手机</th>
             <th>团队</th>
+            <th>提交</th>
         </tr>
         </thead>
         <tbody>
         {% for one in member %}
             <tr>
+                <td><span>{{ loop.index }}</span></td>
                 <td><span>{{ one.activity }}</span></td>
                 <td><span>{{ one.name }}</span></td>
                 <td><span>{{ one.stu_code }}</span></td>
                 <td><span>{{ one.qq }}</span></td>
                 <td><span>{{ one.phone }}</span></td>
-                <td><span>{{ one.team }}</span></td>
+                <td><span>{{ one.team_str }}</span></td>
+                <td><span>
+                    {% if one.has_submit %}
+                        √
+                    {% endif %}
+                </span></td>
             </tr>
+
         {% endfor %}
 
         </tbody>

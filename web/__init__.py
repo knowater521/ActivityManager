@@ -24,6 +24,7 @@ try:
         mysql_url = 'mysql+pymysql://{0}:{1}@localhost:{2}/'.format(config["mysql_user"], config["mysql_passwd"],
                                                                     config["mysql_port"])
         app.config['SQLALCHEMY_BINDS'] = {"activity": mysql_url + config["database"]}
+        app.config['SQLALCHEMY_DATABASE_URI'] = mysql_url + config["database"]
         baseurl = config["baseurl"]
 
 except:

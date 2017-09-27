@@ -16,7 +16,7 @@ def no_base_url():
 
 
 if baseurl != '':
-    app.add_url_rule('baseurl', view_func=index)
+    app.add_url_rule(baseurl, view_func=index)
     app.add_url_rule('/', view_func=no_base_url)
 else:
     app.add_url_rule('/', view_func=index)

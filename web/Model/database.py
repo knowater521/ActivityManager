@@ -15,6 +15,8 @@ class Members(db.Model):
     team = db.Column(db.Text, default="")
     activity = db.Column(db.VARCHAR(10), db.ForeignKey('activities.activity_name'))
 
+    __has_submitted = None
+
     def __init__(self, name, stu_code, qq, phone, activity):
         self.name = name
         self.stu_code = stu_code
@@ -27,6 +29,19 @@ class Members(db.Model):
 
     def get_act_name(self):
         return self.activity
+
+    @property
+    def team_str(self):
+        if self.team is None:
+            return ""
+        return self.team
+
+    @property
+    def has_submit(self):
+        if self.__has_submitted is None:
+            member_submit_his = UploadHistory.query.filter_by(activity=self.activity, sid=self.sid).first()
+            self.__has_submitted = member_submit_his is not None
+        return self.__has_submitted
 
     def __repr__(self):
         return "{0} {1}".format(self.name, self.stu_code)

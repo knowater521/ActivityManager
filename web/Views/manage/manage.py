@@ -7,10 +7,12 @@ from ...Model.SimpleLoginCheck import admin_required
 import xlwt
 from io import BytesIO as StringIO
 
+
 def getChoices():
-        choice = list((o.activity_name, o.activity_name) for o in Activities.query.all())
-        choice.insert(0, ('', '全部'))
-        return choice
+    choice = list((o.activity_name, o.activity_name) for o in Activities.query.all())
+    choice.insert(0, ('', '全部'))
+    return choice
+
 
 @app.route(baseurl + '/admin')
 def admin_index():
@@ -101,6 +103,9 @@ def memberlist():
     else:
         form.act.data = ''
         members = Members.query.order_by(Members.stu_code).all()
+    act = Activities.query.filter_by(activity_name=act_name).first()
+    if act and act.upload_enable:
+        members = sorted(members, key=lambda member: (not member.has_submit, member.stu_code))
     return render_template('admin/member_list.html', form=form, member=members)
 
 
@@ -140,10 +145,10 @@ def generate_excel():
         act_name = 'All'
 
     file = xlwt.Workbook()
-    table = file.add_sheet(act_name)
-    titleRow = ['姓名', '学号', 'qq', 'phone', '团队', '活动']
-    for col in range(0, 6):
-        table.write(0, col, titleRow[col])
+    table = file.add_sheet(act_name[:10])
+    title_row = ['姓名', '学号', 'qq', 'phone', '团队', '活动', '提交']
+    for col in range(0, len(title_row)):
+        table.write(0, col, title_row[col])
     row = 0
     for person in members:
         row += 1
@@ -153,6 +158,8 @@ def generate_excel():
         table.write(row, 3, person.phone)
         table.write(row, 4, person.team)
         table.write(row, 5, person.activity)
+        if person.has_submit:
+            table.write(row, 6, "YES")
 
     sio = StringIO()
     file.save(sio)

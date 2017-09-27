@@ -23,7 +23,10 @@
     <div style="padding-left: 5em">
         {{ util.flashed_messages(dismissible=True) }}
         <h3>Hello {{ user.name }}</h3>
-        <p style="padding-left: 2em">{{ l_s_m }}</p>
+        <div style="padding-left: 2em">
+            <p >{{ l_s_m }}</p>
+            <p >注意：每次上次会覆盖之前的提交！！</p>
+        </div>
     </div>
 
     <div class="container">
